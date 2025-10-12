@@ -1,0 +1,32 @@
+.globe-container {
+    width: 300px;
+    height: 300px;
+    margin: 50px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background-color: #001f3f;
+    box-shadow: 0 0 40px rgba (0,0,0,0.5);
+}
+
+.globe {
+    width: 200%;
+    height: 100%;
+    animation: spin 20s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spin {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #001f3f;
+}
