@@ -20,6 +20,31 @@
   height: 100%;
 }
 
+#progress {
+    width: 80%;
+    height: 15px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    position: relative;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #ffc907;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    display: block;
+    text-align: center;
+    color: #FFF7E1;
+    font-size: 14px;
+    margin-top: 5px;
+
+}
 
 body {
     margin: 0;

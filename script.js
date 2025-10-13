@@ -60,7 +60,6 @@ window.addEventListener("resize", () => {
 // now were adding latitude and longitude calcs for specific areas on the map
 // this should place tiny spheres on the areas ive chosen
 const hotspotGeometry = new THREE.SphereGeometry(0.12, 16, 16);
-const hotspotMaterial = new THREE.MeshBasicMaterial({ color: 0xffc400 });
 const hotspots = [];
 
 hotspotData.forEach(({ name, lat, lon, info }) => {
@@ -72,9 +71,10 @@ hotspotData.forEach(({ name, lat, lon, info }) => {
     const y = radius * Math.cos(phi);
     const z = radius * Math.sin(phi) * Math.sin(theta);
 
+    const hotspotMaterial = new THREE.MeshBasicMaterial({ color: 0xffc400 });
     const marker = new THREE.Mesh(hotspotGeometry, hotspotMaterial);
     marker.position.set(x,y,z);
-    marker.userData = { name, info };
+    marker.userData = { name, info, visited: false };
     scene.add(marker);
     hotspots.push(marker);
 });
@@ -94,9 +94,20 @@ function onGlobeClick(event) {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(hotspots);
 
+    hotspots.forEach(h => {
+        if(!h.userData.visited) h.material.color.set(0xffc907);
+    });
+
     if ( intersects.length > 0) {
         const clicked = intersects[0].object;
         showInfo(clicked.userData.name, clicked.userData.info);
+        clicked.material.color.set(0xffffff);
+        if(!clicked.userData.visited) {
+            console.log("here");
+            clicked.userData.visited = true;
+            clicked.material.color.set(0x003366);
+            updateProgress();
+    }
     }
 }
 
@@ -126,6 +137,14 @@ function onHotspotHover(event) {
   }
 }
 
+function updateProgress() {
+    const visited = hotspots.filter(h => h.userData.visited).length;
+    const total = hotspots.length;
+    const percent = (visited / total) * 100;
+
+    document.getElementById("progress-bar").style.width = `${percent}%`;
+    document.getElementById("progress-text").textContent = `${visited} / ${total} regions visited`;
+}
 
 
 // Keeping old code but commented out, i will use this as a "loading" icon
