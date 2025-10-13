@@ -120,9 +120,9 @@ function onHotspotHover(event) {
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(hotspots);
   
-  hotspots.forEach(h => h.material.color.set(0xffc400)); // reset
+  hotspots.forEach(h => h.material.color.set(0xffc907)); // reset
   if (intersects.length > 0) {
-    intersects[0].object.material.color.set(0xffffff); // glow white
+    intersects[0].object.material.color.set(0xFFF7E1); // glow white
   }
 }
 

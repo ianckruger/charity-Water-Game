@@ -23,9 +23,9 @@
 
 body {
     margin: 0;
-    background-color: #114b85;
-    font-family: 'Helvetica Neue', sans-serif;
-    color:white;
+    background-color: rgb(119, 168, 187);
+    font-family: 'Poppins', sans-serif;
+    color:FFF7E1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +43,7 @@ body {
   width: 320px;
   margin: 20px auto;
   background: rgba(0, 0, 0, 0.75);
-  border: 2px solid #ffc400;
+  border: 2px solid #ffc907;
   border-radius: 10px;
   padding: 15px;
   color: #fff;
@@ -57,24 +57,29 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+header {
+    padding-top: 20px;
+}
+
 header h1 {
-    color: #ffc400;
+    color: #ffc907;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 header p {
     margin-top: 0;
-    color: #d0e6ff;
+    color: #FFF7E1;
     font-size: 14px;
 }
 
 footer {
   margin-top: 20px;
   font-size: 12px;
-  color: #ffc400;
+  color: #ffc907;
 }
 
 footer a {
-  color: #fff;
+  color: #FFF7E1;
   text-decoration: underline;
 }
