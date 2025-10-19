@@ -2,6 +2,7 @@
 <html lang="en"></html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waters of the World</title>
     <link rel="stylesheet" href="style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -27,9 +28,13 @@
         <div class="globe-container" id="globe-container" ></div>
             
         <div id="info-box" class="hidden">
-            <h2 class="r-name">Region Name</h2>
-            <p>Click a hotspot on the globe to learn more.</p>
+            <div id="info-box-content">
+                <h2 class="r-name">Region Name</h2>
+                <p>Click a hotspot on the globe to learn more.</p>
+                <button id="close-info">Close</button>
+            </div>
         </div>
+
 
     </div>
 

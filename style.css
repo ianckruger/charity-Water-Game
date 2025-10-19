@@ -1,6 +1,6 @@
 .globe-container {
-  width: 40vw; /* responsive size */
-  height: 40vw;
+  width: 70vw; /* responsive size */
+  height: 70vw;
   max-width: 600px;
   max-height: 600px;
   margin: 30px auto;
@@ -65,21 +65,78 @@ body {
 }
 
 #info-box {
-  width: 320px;
-  margin: 20px auto;
-  background: rgba(0, 0, 0, 0.75);
-  border: 2px solid #ffc907;
-  border-radius: 10px;
-  padding: 15px;
-  color: #fff;
-  text-align: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50vw;
+  background: rgba(0,0 , 0, 0.6);
   display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
   animation: fadeIn 0.3s ease-in-out;
 }
 
+#info-box-content {
+  background: #001f3f;
+  border: 2px solid #ffc907;
+  border-radius: 12px;
+  padding: 25px;
+  width: 80%;
+  max-width: 350px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  animation: popUp 0.3s ease;
+}
+
+#info-box-content h2 {
+  color: #ffc907;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+#info-box-content p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+#close-info {
+  background: none;
+  border: 2px solid #ffc907;
+  color: #ffc907;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#close-info:hover {
+  background: #ffc907;
+  color: #001f3f;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+
+/* Slight scale animation for the info box */
+@keyframes popUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 header {
@@ -107,4 +164,48 @@ footer {
 footer a {
   color: #FFF7E1;
   text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* spreads content vertically */
+    align-items: center;
+    color: white;
+  }
+
+  #ui-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centers the globe and info vertically */
+    align-items: center;
+    width: 100%;
+    padding: 100px;
+    margin: 100px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header p {
+    font-size: 0.9rem;
+  } 
+
+
+  header img.logo {
+    width:25vw;
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+  
+
+  
+
 }

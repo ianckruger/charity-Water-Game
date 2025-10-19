@@ -59,7 +59,7 @@ window.addEventListener("resize", () => {
 
 // now were adding latitude and longitude calcs for specific areas on the map
 // this should place tiny spheres on the areas ive chosen
-const hotspotGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+const hotspotGeometry = new THREE.SphereGeometry(0.06, 16, 16);
 const hotspots = [];
 
 hotspotData.forEach(({ name, lat, lon, info }) => {
@@ -113,11 +113,30 @@ function onGlobeClick(event) {
 
 function showInfo(name, info) {
     const infoBox = document.getElementById('info-box');
-    infoBox.style.display = 'block';
-    infoBox.innerHTML = `
-    <h2>${name}</h2>
+    const infoContent = document.getElementById('info-box-content');
+
+    infoContent.innerHTML=`<h2>${name}</h2>
     <p>${info}</p>
-    `;
+    <button id="close-info">Close</button>`;
+    infoBox.style.display = 'flex';
+    infoBox.classList.remove('fade-out');
+
+    // Function to hide with fade
+    const hideOverlay = () => {
+      infoBox.classList.add('fade-out');
+      setTimeout(() => {
+        infoBox.style.display = 'none';
+        infoBox.classList.remove('fade-out');
+      }, 300); // matches fadeOut duration
+    };
+
+    // click the button to close
+    document.getElementById('close-info').addEventListener('click', hideOverlay);
+
+    // Cclick it outside to close (for mobile)
+    infoBox.addEventListener('click', (e) => {
+      if (e.target === infoBox) hideOverlay();
+    });
 }
 
 // making it highlight on hover cause itll look cool (i know its a prototype as of right now but cmon)
@@ -145,6 +164,19 @@ function updateProgress() {
     document.getElementById("progress-bar").style.width = `${percent}%`;
     document.getElementById("progress-text").textContent = `${visited} / ${total} regions visited`;
 }
+
+// fixing feedback and adding the touchscreen element for mobile users
+renderer.domElement.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  onGlobeClick({ clientX: touch.clientX, clientY: touch.clientY });
+});
+
+renderer.domElement.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  onHotspotHover({ clientX: touch.clientX, clientY: touch.clientY });
+});
 
 
 // Keeping old code but commented out, i will use this as a "loading" icon
