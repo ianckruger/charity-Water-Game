@@ -64,6 +64,18 @@ body {
     margin-top: 20px;
 }
 
+#clue-box {
+  padding: 30px 15px;
+  margin-top: 15px;
+}
+
+#clue-text {
+  text-align: center;
+  color: #FFF7E1;
+  font-weight: bold;
+  font-size: large;
+}
+
 #info-box {
   position: fixed;
   top: 0;
