@@ -56,6 +56,19 @@ body {
     align-items: center;
 }
 
+#difficulty-select {
+  padding-top: 20px;
+  color: #FFF7E1;
+  font-size: 14px;
+}
+
+#difficulty {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #ffc907;
+  background:  rgb(119, 168, 187);
+  color:#FFF7E1;
+}
 
 #ui-container {
     text-align: center;
@@ -65,7 +78,7 @@ body {
 }
 
 #clue-box {
-  padding: 30px 15px;
+  padding: 15px 15px;
   margin-top: 15px;
 }
 
