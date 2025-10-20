@@ -1,0 +1,54 @@
+// Keeping old code but commented out, i will use this as a "loading" icon
+
+// let isDragging = false;
+// let prevX = 0;
+// let prevY = 0;
+
+// document.addEventListener("mousedown", e => { 
+//     isDragging = true; 
+//     prevX = e.clientX;
+//     prevY = e.clientY; });
+
+// document.addEventListener("mouseup", () => { isDragging = false; });
+// document.addEventListener("mousemove", e => {
+//   if (isDragging) {
+//     const delta = e.clientX - prevX;
+//     globe.rotation.y += delta * 0.005;
+//     prevX = e.clientX;
+
+//     const delta2 = e.clientY - prevY;
+//     globe.rotation.x += delta2 * 0.005;
+//     prevY = e.clientY;
+//   }
+// });
+
+
+
+
+
+
+// function onGlobeClick(event) {
+//     // we take the mouse location and turn it into coordinate to match the hotspots
+//     const rect = renderer.domElement.getBoundingClientRect();
+//     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+//     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+//     raycaster.setFromCamera(mouse, camera);
+//     const intersects = raycaster.intersectObjects(hotspots);
+
+//     hotspots.forEach(h => {
+//         if(!h.userData.visited) h.material.color.set(0xffc907);
+//     });
+
+//     if ( intersects.length > 0) {
+//         const clicked = intersects[0].object;
+//         showInfo(clicked.userData.name, clicked.userData.info);
+//         clicked.material.color.set(0xffffff);
+//         if(!clicked.userData.visited) {
+//             console.log("here");
+//             clicked.userData.visited = true;
+//             clicked.material.color.set(0x003366);
+//             updateProgress();
+//     }
+//     }
+// }
