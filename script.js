@@ -3,6 +3,7 @@
 // Orbit control handling --> https://threejs.org/docs/#examples/en/controls/OrbitControls
 // 3D map positioning --> https://threejs.org/docs/#api/en/core/Object3D.position
 // raycaster aka live mouse picking/ hotspot stuff --> https://threejs.org/docs/#api/en/core/Raycaster
+// sounds --> https://pixabay.com/sound-effects/search/game/
 
 // want to contain it in a section rather than have the canvas as a screen
 
@@ -30,6 +31,19 @@ container.appendChild(renderer.domElement);
 // Globe texture
 const texture = new THREE.TextureLoader().load("assets/images/globe-image.webp");
 const greyTexture = new THREE.TextureLoader().load("assets/images/globe-image-grey.webp");
+
+const bgAudio = new Audio("assets/audio/waves.mp3");
+bgAudio.loop = true;
+bgAudio.volume = 0.3; // not too loud ?
+
+// click / discovery sound
+const clickAudio = new Audio("assets/audio/discover.mp3");
+clickAudio.volume = 0.5;
+
+// ensure user interaction starts the audio (autoplay policy)
+document.addEventListener("click", () => {
+  if (bgAudio.paused) bgAudio.play();
+}, { once: true });
 
 // shader for blending
 const globeMaterial = new THREE.ShaderMaterial({
@@ -63,7 +77,8 @@ const globe = new THREE.Mesh(geometry, globeMaterial);
 scene.add(globe);
 camera.position.z = 5;
 
-// === Helper: Shuffle array (Fisher–Yates algorithm)
+// shuffle array (Fisher–Yates algorithm) so its random every game
+// more replayable
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -71,7 +86,6 @@ function shuffle(array) {
   }
 }
 
-// === Keep a safe copy of your base data (from waterData.js)
 const ORIGINAL_DATA = [...hotspotData];
 let activeData = [];
 let hotspots = [];
@@ -80,7 +94,7 @@ let currIndex = 0;
 let foundRegions = 0;
 let gameActive = true;
 
-// === Build hotspots based on currently active data
+// build hotspots based on currently active data
 function buildHotspots() {
   hotspots.forEach(h => scene.remove(h));
   hotspots = [];
@@ -106,7 +120,7 @@ function buildHotspots() {
   });
 }
 
-// === Initialize the game
+// initialize the game; implemented for restarting + cleaner code structure
 function initGame() {
   const { regionCount } = difficultyLevels[currentDifficulty];
   const dataCopy = [...ORIGINAL_DATA];
@@ -123,13 +137,13 @@ function initGame() {
   showClue();
 }
 
-// === Restart (used for difficulty change)
+// restart (used for difficulty change)
 function restartGame() {
   showTemporaryMessage(`Difficulty set to ${currentDifficulty.toUpperCase()}`);
   initGame();
 }
 
-// === Difficulty selector
+// difficulty selector listener
 const diffSelect = document.getElementById('difficulty');
 if (diffSelect) {
   diffSelect.value = currentDifficulty;
@@ -139,7 +153,7 @@ if (diffSelect) {
   });
 }
 
-// === Orbit controls
+// orbit controls; allow for swiping and spin control
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 controls.enablePan = false;
@@ -155,7 +169,7 @@ function animate() {
 }
 animate();
 
-// === Responsive resize
+// responsive resize
 window.addEventListener("resize", () => {
   const width = container.clientWidth;
   const height = container.clientHeight;
@@ -164,7 +178,7 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
 });
 
-// === Raycaster for clicks
+// raycaster for clicking and touch screen (see bottom)
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -218,6 +232,8 @@ function latLonToVector3(lat, lon) {
 }
 
 function revealRegion() {
+  clickAudio.currentTime = 0;
+  clickAudio.play();
   const { name, info } = activeData[currIndex];
   const hotspot = hotspots[currIndex];
   hotspot.visible = true;
